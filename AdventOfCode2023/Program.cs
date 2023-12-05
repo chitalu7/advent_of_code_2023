@@ -1,5 +1,54 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// AoC - DAY 1 - TREBUCHET
+
 using System.Reflection.PortableExecutable;
 
 Console.WriteLine("ADVENT OF CODE - DAY 1 - TREBUCHET");
@@ -7,8 +56,8 @@ Console.WriteLine();
 
 // Data Hold
 List<int> dataToCalculate = new List<int>();
-string firstNumber = string.Empty;
-string secondNumber = string.Empty;
+string firstDigit = string.Empty;
+string secondDigit = string.Empty;
 
 // Default source of input text
 //string srcFolder = "C:/Users/chita/OneDrive/Documents/06-TEKITWE/Advent_Of_Code/2023/day_1/";
@@ -34,9 +83,9 @@ if (File.Exists(textFile))
             // Read the current line
             string line = reader.ReadLine()!;
 
-            // Process the line as needed
+            // Process the lineS as needed
             numberExtracted = ExtractDoubleDigitNumber(line);
-            Console.WriteLine(numberExtracted);            
+            Console.WriteLine(numberExtracted);
         }
 
         Console.WriteLine();
@@ -44,45 +93,53 @@ if (File.Exists(textFile))
         Console.WriteLine($"TOTAL VALUE: {dataToCalculate.Sum()}");
 
 
-        /* // Read the entire contents of the file
-         string content = reader.ReadToEnd();*/
+        // Read the entire contents of the file
+        string content = reader.ReadToEnd();
 
         // Display the content
-        /* Console.WriteLine(content);*/
+        Console.WriteLine(content);
         Console.WriteLine();
     }
 }
 
 int ExtractDoubleDigitNumber(string lineIn)
 {
+    // Keep track of start and end loops to find first and second digits
     int indexCount = 0;
+
+    // String value of concatenated digit values from each line of data
     string checkValue = string.Empty;
+
+
     int result = 0;
 
+    // Extract first digit
     foreach (char character in lineIn)
     {
         if (int.TryParse(character.ToString(), out int charToInt))
         {
-            
-            firstNumber = character.ToString();
-            
+
+            firstDigit = character.ToString();
             break;
         }
         indexCount++;
     }
 
+    // Extract second digit
     for (int i = lineIn.Length - 1; i >= indexCount; i--)
     {
         if (int.TryParse(lineIn[i].ToString(), out int charToInt))
         {
-            secondNumber = lineIn[i].ToString();
+            secondDigit = lineIn[i].ToString();
             break;
         }
-        
-    }
-    
-    checkValue = firstNumber + secondNumber;
 
+    }
+
+    // Concatenate first and second digit
+    checkValue = firstDigit + secondDigit;
+
+    // Check concatenated digits for special cases and constraints
     if (checkValue.Length == 1)
     {
         checkValue += checkValue;
@@ -101,15 +158,9 @@ int ExtractDoubleDigitNumber(string lineIn)
         Console.WriteLine("Invalid format for conversion");
     }
 
-
-
-    dataToCalculate.Add(result);    
-
+    dataToCalculate.Add(result);
     return result;
 }
 
-
-
 Console.WriteLine("Press any key to exit...");
-
 Console.ReadKey();
